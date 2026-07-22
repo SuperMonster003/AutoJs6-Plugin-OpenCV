@@ -1,0 +1,16 @@
+******
+
+### 發行歷史
+
+******
+
+# v1.0.0
+
+###### 2026/07/22
+
+* `新增` 首次發佈面向 AutoJs6 的 OpenCV 4.8.0 原生運行時插件: 宿主保留 OpenCV Java API, 插件提供 `libopencv_java4.so`
+* `新增` 支援通過 `org.autojs.plugin.INFO` 和 `org.autojs.plugin.OPENCV` 以及 `opencv-runtime` category 發現插件, 並提供宿主所需的兼容性元數據
+* `新增` 支援 `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` 和 `universal` APK, 並動態上報實際打包的 ABI
+* `新增` 插件資訊, 使用說明, README 與 CHANGELOG 均支援西班牙語, 法語, 俄語, 阿拉伯語, 日語, 韓語, 英語, 簡體中文, 香港繁體和台灣繁體
+* `新增` 新增 debug 和 release 完整性校驗, 覆蓋原生庫清單, ELF 架構, payload 雜湊, Java API 指紋, 重複 OpenCV Java 類和許可資源; 可發佈構建校驗還要求配置簽名
+* `新增` 每個 APK 均打包 OpenCV 4.8.0 和靜態連結第三方組件的完整許可原文; 插件不打包 `libc++_shared.so`, 兼容的 AutoJs6 宿主必須提供並預先載入此進程級依賴
