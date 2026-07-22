@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="org.autojs.permission.PLUGIN" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <meta-data
+            android:name="org.autojs.plugin.WAKE_ACTIVITY"
+            android:value=".WakeActivity" />
+        <meta-data
+            android:name="org.autojs.plugin.info.AUTHOR"
+            android:value="SuperMonster003" />
+        <meta-data
+            android:name="org.autojs.plugin.opencv.CONTRACT_VERSION"
+            android:value="${openCvContractVersion}" />
+        <meta-data
+            android:name="org.autojs.plugin.opencv.VERSION"
+            android:value="${openCvVersion}" />
+        <meta-data
+            android:name="org.autojs.plugin.opencv.NATIVE_LIBRARY"
+            android:value="${openCvNativeLibrary}" />
+        <meta-data
+            android:name="org.autojs.plugin.opencv.JAVA_API_SHA256"
+            android:value="${openCvJavaApiSha256}" />
+        <meta-data
+            android:name="requiresHostVersion"
+            android:value="${openCvRequiredHostVersion}" />
+
+        <activity
+            android:name=".WakeActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:finishOnTaskLaunch="true"
+            android:permission="org.autojs.permission.PLUGIN"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="org.autojs.plugin.action.WAKE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".OpenCvPluginInfoService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="org.autojs.permission.PLUGIN">
+            <meta-data
+                android:name="org.autojs.plugin.opencv.CONTRACT_VERSION"
+                android:value="${openCvContractVersion}" />
+            <meta-data
+                android:name="org.autojs.plugin.opencv.VERSION"
+                android:value="${openCvVersion}" />
+            <meta-data
+                android:name="org.autojs.plugin.opencv.NATIVE_LIBRARY"
+                android:value="${openCvNativeLibrary}" />
+            <meta-data
+                android:name="org.autojs.plugin.opencv.JAVA_API_SHA256"
+                android:value="${openCvJavaApiSha256}" />
+            <meta-data
+                android:name="requiresHostVersion"
+                android:value="${openCvRequiredHostVersion}" />
+            <intent-filter>
+                <action android:name="org.autojs.plugin.INFO" />
+                <category android:name="opencv-runtime" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.autojs.plugin.OPENCV" />
+                <category android:name="opencv-runtime" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>
