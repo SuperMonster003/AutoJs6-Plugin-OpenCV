@@ -7,6 +7,7 @@
 *.ffs_db
 *.patch
 *.salive
+*.pyc
 .tmp_*.txt
 
 .DS_Store
@@ -20,6 +21,7 @@ desktop.ini
 .git/
 .gradle/
 .kotlin/
+__pycache__/
 .hprof/
 
 !.run

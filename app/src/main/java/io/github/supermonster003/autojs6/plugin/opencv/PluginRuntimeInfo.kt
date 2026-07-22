@@ -29,6 +29,10 @@ internal fun Context.openCvPluginInfo(): PluginInfo {
             putInt(OpenCvPluginContract.META_DATA_CONTRACT_VERSION, OpenCvPluginContract.VERSION)
             putString(OpenCvPluginContract.META_DATA_OPENCV_VERSION, OpenCvPluginContract.VARIANT_4_8_0)
             putString(OpenCvPluginContract.META_DATA_NATIVE_LIBRARY, OpenCvPluginContract.NATIVE_LIBRARY_NAME)
+            putString(
+                OpenCvPluginContract.META_DATA_NATIVE_NDK_VERSION,
+                BuildConfig.OPENCV_NATIVE_NDK_VERSION,
+            )
             putString(OpenCvPluginContract.META_DATA_JAVA_API_SHA256, OpenCvPluginContract.JAVA_API_SHA256)
         }
     }

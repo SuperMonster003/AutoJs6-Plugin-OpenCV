@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "opencv": {
+    "version": "4.8.0",
+    "repository": "https://github.com/opencv/opencv.git",
+    "tag": "4.8.0",
+    "tagObjectSha": "53296de62872b5e7d042ddffb49679fbdcca99f6",
+    "commitSha": "f9a59f2592993d3dcc080e495f4f5e02dd8ec7ef"
+  },
+  "build": {
+    "androidNdkVersion": "26.1.10909125",
+    "androidNdkRelease": "r26b",
+    "androidMinSdk": 24,
+    "cmakeVersion": "3.22.1",
+    "compilerIdent": "Android (10552028, based on r487747d) clang version 17.0.2 (https://android.googlesource.com/toolchain/llvm-project d9f89f4d16663d5012e5c09495f3b30ece3d2362)",
+    "stl": "c++_shared",
+    "libcxxSharedPackaged": false
+  },
+  "artifact": {
+    "path": "libs/opencv-native-4.8.0.aar",
+    "sha256": "dcb68ce2fa09a634e2194286d94987dd2219bad02d1d01257461ba8ad8236c28",
+    "sizeBytes": 53081345,
+    "abis": {
+      "arm64-v8a": {
+        "sha256": "9294640d4028376d11a6fad548379b44348b3c164fcea73141134666ed4a79a0",
+        "sizeBytes": 20604240,
+        "gnuBuildId": "f5ce9061f24b161b8dd48d401f8b0f1923269e8a",
+        "androidApiLevel": 24,
+        "androidNdkRelease": "r26b",
+        "neededLibraries": [
+          "libdl.so",
+          "libm.so",
+          "liblog.so",
+          "libjnigraphics.so",
+          "libz.so",
+          "libandroid.so",
+          "libmediandk.so",
+          "libcamera2ndk.so",
+          "libc.so",
+          "libc++_shared.so"
+        ]
+      },
+      "armeabi-v7a": {
+        "sha256": "f938e4cae76898708af6b71a33ca650b73b83abe23762963f2593e38eca2ce8b",
+        "sizeBytes": 14437132,
+        "gnuBuildId": "6cb447130cf01a59f8141fbb36e38a8a39f03a91",
+        "androidApiLevel": 24,
+        "androidNdkRelease": "r26b",
+        "neededLibraries": [
+          "libdl.so",
+          "libm.so",
+          "liblog.so",
+          "libjnigraphics.so",
+          "libz.so",
+          "libandroid.so",
+          "libmediandk.so",
+          "libcamera2ndk.so",
+          "libc.so",
+          "libc++_shared.so"
+        ]
+      },
+      "x86": {
+        "sha256": "d7bf9a16c500cc888cbd60be1ced9d0693f2d3ebff0e0a77c6fdcfd2b36674d2",
+        "sizeBytes": 40721400,
+        "gnuBuildId": "030ba3ceef8eac3d018bc7b41b4a48738e0f29d3",
+        "androidApiLevel": 24,
+        "androidNdkRelease": "r26b",
+        "neededLibraries": [
+          "libdl.so",
+          "libm.so",
+          "liblog.so",
+          "libjnigraphics.so",
+          "libz.so",
+          "libandroid.so",
+          "libmediandk.so",
+          "libcamera2ndk.so",
+          "libc.so",
+          "libc++_shared.so"
+        ]
+      },
+      "x86_64": {
+        "sha256": "c97241f6453ee8323666dceebca0f940f84d03dca11f9cafbc9f6d9a6c7a5bd2",
+        "sizeBytes": 53325568,
+        "gnuBuildId": "ee120b169c19b5e101e14784c77104e2162d19b3",
+        "androidApiLevel": 24,
+        "androidNdkRelease": "r26b",
+        "neededLibraries": [
+          "libdl.so",
+          "libm.so",
+          "liblog.so",
+          "libjnigraphics.so",
+          "libz.so",
+          "libandroid.so",
+          "libmediandk.so",
+          "libcamera2ndk.so",
+          "libc.so",
+          "libc++_shared.so"
+        ]
+      }
+    }
+  }
+}

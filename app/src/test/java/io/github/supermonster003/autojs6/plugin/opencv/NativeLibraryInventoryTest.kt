@@ -37,9 +37,14 @@ class NativeLibraryInventoryTest {
         assertEquals("opencv", OpenCvPluginContract.PLUGIN_ID)
         assertEquals("opencv", OpenCvPluginContract.ENGINE)
         assertEquals("4.8.0", OpenCvPluginContract.VARIANT_4_8_0)
-        assertEquals(1, OpenCvPluginContract.VERSION)
-        assertEquals(5236L, OpenCvPluginContract.REQUIRED_HOST_VERSION_CODE)
+        assertEquals(2, OpenCvPluginContract.VERSION)
+        assertEquals(5237L, OpenCvPluginContract.REQUIRED_HOST_VERSION_CODE)
         assertEquals("opencv_java4", OpenCvPluginContract.NATIVE_LIBRARY_NAME)
+        assertEquals("26.1.10909125", OpenCvPluginContract.EXPECTED_NATIVE_NDK_VERSION)
+        assertEquals(
+            OpenCvPluginContract.EXPECTED_NATIVE_NDK_VERSION,
+            BuildConfig.OPENCV_NATIVE_NDK_VERSION,
+        )
         assertEquals(
             "340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f",
             OpenCvPluginContract.JAVA_API_SHA256,

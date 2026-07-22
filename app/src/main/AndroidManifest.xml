@@ -25,6 +25,9 @@
             android:name="org.autojs.plugin.opencv.NATIVE_LIBRARY"
             android:value="${openCvNativeLibrary}" />
         <meta-data
+            android:name="org.autojs.plugin.opencv.NATIVE_NDK_VERSION"
+            android:value="${openCvNativeNdkVersion}" />
+        <meta-data
             android:name="org.autojs.plugin.opencv.JAVA_API_SHA256"
             android:value="${openCvJavaApiSha256}" />
         <meta-data
@@ -58,6 +61,9 @@
             <meta-data
                 android:name="org.autojs.plugin.opencv.NATIVE_LIBRARY"
                 android:value="${openCvNativeLibrary}" />
+            <meta-data
+                android:name="org.autojs.plugin.opencv.NATIVE_NDK_VERSION"
+                android:value="${openCvNativeNdkVersion}" />
             <meta-data
                 android:name="org.autojs.plugin.opencv.JAVA_API_SHA256"
                 android:value="${openCvJavaApiSha256}" />
