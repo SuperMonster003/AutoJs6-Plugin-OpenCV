@@ -1,0 +1,195 @@
+[versions]
+
+#deprecated   : Only retained for dependencies of certain libraries (such as MQTT)
+#substitution : LiveData or SharedFlow
+#since        : Sep 25, 2025 (by SuperMonster003)
+localbroadcastmanager = "1.1.0"
+
+#strictly : 4.12.0
+#purpose  : Compatibility for kotlin 2.0.x (e.g. 2.0.21)
+#because  : Version 5.0.0+ requires kotlin 2.2.0+
+#since    : Sep 25, 2025 (by SuperMonster003)
+#noinspection NewerVersionAvailable
+okhttp = "4.12.0"
+
+#strictly : 1.15.0
+#purpose  : Compatibility for Android Gradle plugin 8.2.2
+#because  : Dependency 'androidx.core:core:1.16.0' requires Android Gradle plugin 8.6.0 or higher
+#since    : Sep 25, 2025 (by SuperMonster003)
+#noinspection NewerVersionAvailable,GradleDependency
+core-ktx = "1.15.0"
+
+#strictly : 2.8.0
+#purpose  : Compatibility for Android API Level < 26 (Android 8.0) [O]
+#because  : Exception on newer versions: 'NoClassDefFoundError: org.apache.commons.io.IObuildUtils'
+#noinspection NewerVersionAvailable
+commons-io = "2.8.0"
+
+#strictly : 2.13.4.2
+#purpose  : Compatibility for Android API Level < 26 (Android 8.0) [O]
+#because  : Exception on 2.14.x: 'No virtual method getParameterCount()I in class Ljava/lang/reflect/Method'
+#noinspection NewerVersionAvailable
+jackson-databind = "2.13.4.2"
+
+#strictly : 1.2.17
+#purpose  : Compatibility for Android API Level < 26 (Android 8.0) [O]
+#because  : Version 2.x.x requires Android API Level which is not lower than 26 (current is 24)
+log4j = "1.2.17"
+
+#purpose : Compatibility of java.time.* for Android API Level < 26 (Android 8.0) [O]
+desugar = "2.1.5"
+
+activity-ktx = "1.12.2"
+android-annotations = "4.8.0"
+android-device-names = "2.1.1"
+android-logging-log4j = "1.0.3"
+animated-svg-view = "1.0.6"
+annotation = "1.9.1"
+appcompat = "1.7.1"
+arsclib = "1.3.8"
+bcpkix-jdk15on = "1.70"
+bcprov-jdk15on = "1.70"
+cardview = "1.0.0"
+circleimageview = "3.1.0"
+circularreveal = "2.0.1"
+commonmark = "commonmark-parent-0.9.0"
+commons-compress = "1.28.0"
+commons-lang3 = "3.18.0"
+constraintlayout = "2.2.1"
+easywindow = "10.3"
+eventbus = "3.3.1"
+flexbox = "3.0.0"
+flexmark-html2md = "0.64.8"
+foojay-resolver-convention = "1.0.0"
+glide = "5.0.5"
+gson = "2.13.2"
+icu4j = "77.1"
+interpolator = "1.0.0"
+jcip-annotations = "1.0"
+jdeferred = "1.2.6"
+joda-time = "2.14.0"
+jsoup = "1.21.2"
+junit = "4.13.2"
+junit-jupiter = "5.13.4"
+junit-quickcheck-core = "1.0"
+junit-quickcheck-generators = "1.0"
+kotlin-csv-jvm = "1.10.0"
+leakcanary = "2.14"
+licensesdialog = "2.2.0"
+material = "1.13.0"
+materialprogressbar = "1.6.1"
+multidex = "2.0.1"
+opencc = "1.2.2"
+paho-android-service = "1.1.1"
+paho-client-mqttv3 = "1.2.5"
+pinyin4j = "2.5.1"
+preference-ktx = "1.2.1"
+prov = "1.58.0.0"
+r8 = "8.13.17"
+recyclerview = "1.4.0"
+retrofit = "3.0.0"
+retrofit2-kotlin-coroutines-adapter = "0.9.2"
+room = "2.8.1"
+roundedimageview = "2.3.0"
+rxandroid = "2.1.1"
+rxjava = "2.2.21"
+shizuku = "13.1.5"
+swiperefreshlayout = "1.1.0"
+test-espresso-core = "3.7.0"
+test-junit-version = "1.3.0"
+test-rules = "1.7.0"
+test-runner = "1.7.0"
+toaster = "12.6"
+versioncompare = "1.5.0"
+webkit = "1.14.0"
+work-runtime = "2.11.0"
+xz = "1.10"
+zip4j = "2.11.5"
+
+[libraries]
+
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity-ktx" }
+android-annotations = { module = "org.androidannotations:androidannotations", version.ref = "android-annotations" }
+android-annotations-api = { module = "org.androidannotations:androidannotations-api", version.ref = "android-annotations" }
+android-device-names = { module = "com.jaredrummler:android-device-names", version.ref = "android-device-names" }
+android-logging-log4j = { module = "de.mindpipe.android:android-logging-log4j", version.ref = "android-logging-log4j" }
+animated-svg-view = { module = "com.jaredrummler:animated-svg-view", version.ref = "animated-svg-view" }
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+apache-commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commons-compress" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+arsclib = { module = "io.github.reandroid:ARSCLib", version.ref = "arsclib" }
+bcpkix-jdk15on = { module = "org.bouncycastle:bcpkix-jdk15on", version.ref = "bcpkix-jdk15on" }
+bcprov-jdk15on = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bcprov-jdk15on" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+circularreveal = { module = "com.github.ozodrukh:CircularReveal", version.ref = "circularreveal" }
+commonmark = { module = "com.github.atlassian:commonmark-java", version.ref = "commonmark" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+easywindow = { module = "com.github.getActivity:EasyWindow", version.ref = "easywindow" }
+eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+flexmark-html2md = { module = "com.vladsch.flexmark:flexmark-html2md-converter", version.ref = "flexmark-html2md" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
+interpolator = { group = "androidx.interpolator", name = "interpolator", version.ref = "interpolator" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind" }
+jcip-annotations = { module = "net.jcip:jcip-annotations", version.ref = "jcip-annotations" }
+jdeferred = { module = "org.jdeferred:jdeferred-android-aar", version.ref = "jdeferred" }
+joda-time = { module = "joda-time:joda-time", version.ref = "joda-time" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-quickcheck-core = { module = "com.pholser:junit-quickcheck-core", version.ref = "junit-quickcheck-core" }
+junit-quickcheck-generators = { module = "com.pholser:junit-quickcheck-generators", version.ref = "junit-quickcheck-generators" }
+kotlin-csv-jvm = { module = "com.github.doyaaaaaken:kotlin-csv-jvm", version.ref = "kotlin-csv-jvm" }
+ksp-version-codes-processor = { module = "logic:ksp-version-codes-processor" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+licensesdialog = { module = "de.psdev.licensesdialog:licensesdialog", version.ref = "licensesdialog" }
+localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
+log4j = { module = "log4j:log4j", version.ref = "log4j" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+materialprogressbar = { module = "me.zhanghai.android.materialprogressbar:library", version.ref = "materialprogressbar" }
+multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+opencc = { module = "com.github.brooklet:android-opencc", version.ref = "opencc" }
+paho-android-service = { module = "org.eclipse.paho:org.eclipse.paho.android.service", version.ref = "paho-android-service" }
+paho-client-mqttv3 = { module = "org.eclipse.paho:org.eclipse.paho.client.mqttv3", version.ref = "paho-client-mqttv3" }
+pinyin4j = { module = "com.belerweb:pinyin4j", version.ref = "pinyin4j" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference-ktx" }
+prov = { module = "com.madgag.spongycastle:prov", version.ref = "prov" }
+r8 = { module = "com.android.tools:r8", version.ref = "r8" }
+recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit2-kotlin-coroutines-adapter = { module = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter", version.ref = "retrofit2-kotlin-coroutines-adapter" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "room" }
+roundedimageview = { module = "com.makeramen:roundedimageview", version.ref = "roundedimageview" }
+rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava" }
+shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
+shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "test-espresso-core" }
+test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "test-junit-version" }
+test-rules = { module = "androidx.test:rules", version.ref = "test-rules" }
+test-runner = { module = "androidx.test:runner", version.ref = "test-runner" }
+toaster = { module = "com.github.getActivity:Toaster", version.ref = "toaster" }
+tukaani-xz = { module = "org.tukaani:xz", version.ref = "xz" }
+versioncompare = { module = "io.github.g00fy2:versioncompare", version.ref = "versioncompare" }
+webkit = { module = "androidx.webkit:webkit", version.ref = "webkit" }
+work-runtime = { module = "androidx.work:work-runtime", version.ref = "work-runtime" }
+zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
+
+[plugins]
+
+foojay-resolver-convention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver-convention" }
