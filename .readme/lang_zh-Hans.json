@@ -14,6 +14,7 @@
   "text_contract_version": "契约版本",
   "text_required_host_version_code": "最低宿主版本代码",
   "text_native_library": "原生库",
+  "text_native_ndk_version": "原生 NDK 版本",
   "text_java_api_sha256": "Java API SHA-256",
   "p_contract_service": "同一个 `OpenCvPluginInfoService` 响应 `org.autojs.plugin.INFO` 和 `org.autojs.plugin.OPENCV`.",
   "p_contract_binder": "两个 action 均使用 `opencv-runtime` category. Binder 接口为 common-plugin-api 的 `IPluginInfoProvider`.",

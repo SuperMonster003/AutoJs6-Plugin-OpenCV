@@ -54,9 +54,10 @@ AutoJs6 OpenCV 플러그인은 AutoJs6 이미지 API에서 사용하는 OpenCV 4
 - 플러그인 ID: `opencv`
 - 엔진: `opencv`
 - 변형: `4.8.0`
-- 계약 버전: `1`
-- 필수 호스트 버전 코드: `5236`
+- 계약 버전: `2`
+- 필수 호스트 버전 코드: `5237`
 - 네이티브 라이브러리: `opencv_java4`
+- 네이티브 NDK 버전: `26.1.10909125`
 - Java API SHA-256: `340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f`
 
 동일한 `OpenCvPluginInfoService`가 `org.autojs.plugin.INFO` 및 `org.autojs.plugin.OPENCV`에 응답합니다.
@@ -137,6 +138,7 @@ debug APK만 빌드하려면:
 * `기능` 플러그인 정보, 사용 설명, README 및 CHANGELOG를 스페인어, 프랑스어, 러시아어, 아랍어, 일본어, 한국어, 영어, 간체 중국어, 홍콩 번체 및 대만 번체로 현지화
 * `기능` debug 및 release 무결성 검증에서 네이티브 라이브러리 목록, ELF 아키텍처, payload 해시, Java API 지문, 중복 OpenCV Java 클래스 및 라이선스 애셋을 확인; 게시 가능한 빌드 검증에는 서명 설정도 필요
 * `기능` OpenCV 4.8.0과 정적으로 연결된 타사 구성 요소의 전체 라이선스 원문을 각 APK에 포함; 플러그인은 `libc++_shared.so`를 패키징하지 않으며 호환되는 AutoJs6 호스트가 이를 제공하고 먼저 로드해야 함
+* `수정` OpenCV 4.8.0 네이티브 라이브러리를 Android NDK 26 및 API 24로 재빌드하여 예외가 호환되지 않는 C++ 런타임 경계를 넘어 AutoJs6 호스트를 비정상 종료시키는 문제를 방지
 
 ##### 더 많은 릴리스 기록
 

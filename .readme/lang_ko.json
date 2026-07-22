@@ -14,6 +14,7 @@
   "text_contract_version": "계약 버전",
   "text_required_host_version_code": "필수 호스트 버전 코드",
   "text_native_library": "네이티브 라이브러리",
+  "text_native_ndk_version": "네이티브 NDK 버전",
   "text_java_api_sha256": "Java API SHA-256",
   "p_contract_service": "동일한 `OpenCvPluginInfoService`가 `org.autojs.plugin.INFO` 및 `org.autojs.plugin.OPENCV`에 응답합니다.",
   "p_contract_binder": "두 액션 모두 `opencv-runtime` 카테고리를 사용합니다. Binder 인터페이스는 common-plugin-api의 `IPluginInfoProvider`입니다.",

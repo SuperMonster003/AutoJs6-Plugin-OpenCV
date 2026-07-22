@@ -54,9 +54,10 @@ AutoJs6 OpenCV 外掛提供 AutoJs6 影像 API 使用的 OpenCV 4.8.0 原生執�
 - 外掛 ID: `opencv`
 - 引擎: `opencv`
 - 變體: `4.8.0`
-- 契約版本: `1`
-- 最低主程式版本碼: `5236`
+- 契約版本: `2`
+- 最低主程式版本碼: `5237`
 - 原生程式庫: `opencv_java4`
+- 原生 NDK 版本: `26.1.10909125`
 - Java API SHA-256: `340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f`
 
 同一個 `OpenCvPluginInfoService` 會回應 `org.autojs.plugin.INFO` 和 `org.autojs.plugin.OPENCV`.
@@ -137,6 +138,7 @@ universal
 * `新增` 外掛資訊, 使用說明, README 與 CHANGELOG 均支援西班牙文, 法文, 俄文, 阿拉伯文, 日文, 韓文, 英文, 簡體中文, 香港繁體和台灣繁體
 * `新增` 新增 debug 和 release 完整性驗證, 涵蓋原生程式庫清單, ELF 架構, payload 雜湊, Java API 指紋, 重複 OpenCV Java 類別和授權資源; 可發布建置版本的驗證還要求設定簽章
 * `新增` 每個 APK 均打包 OpenCV 4.8.0 和靜態連結第三方元件的完整授權原文; 外掛不打包 `libc++_shared.so`, 相容的 AutoJs6 主程式必須提供並預先載入此處理程序層級相依性
+* `修正` 將 OpenCV 4.8.0 原生程式庫改用 Android NDK 26 和 API 24 重新建置, 避免例外跨越不相容的 C++ 執行環境邊界並導致 AutoJs6 主程式當機
 
 ##### 更多發行記錄可參閱
 

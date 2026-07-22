@@ -54,9 +54,10 @@ The AutoJs6 OpenCV Plugin supplies the OpenCV 4.8.0 native runtime used by AutoJ
 - Plugin ID: `opencv`
 - Engine: `opencv`
 - Variant: `4.8.0`
-- Contract version: `1`
-- Required host version code: `5236`
+- Contract version: `2`
+- Required host version code: `5237`
 - Native library: `opencv_java4`
+- Native NDK version: `26.1.10909125`
 - Java API SHA-256: `340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f`
 
 The same `OpenCvPluginInfoService` responds to `org.autojs.plugin.INFO` and `org.autojs.plugin.OPENCV`.
@@ -137,6 +138,7 @@ Install only trusted builds. Before loading the native library, the host verifie
 * `Feature` Localized plugin metadata, instructions, README, and CHANGELOG for Spanish, French, Russian, Arabic, Japanese, Korean, English, Simplified Chinese, Hong Kong Traditional Chinese, and Taiwan Traditional Chinese
 * `Feature` Added debug and release integrity checks for native inventory, ELF architecture, payload hashes, the Java API fingerprint, duplicate OpenCV Java classes, and license assets; publishable verification also requires configured signing
 * `Feature` Packaged the complete OpenCV 4.8.0 and static third-party license texts in every APK; the plugin does not package `libc++_shared.so`, which a compatible AutoJs6 host must supply and preload
+* `Fix` Rebuilt the OpenCV 4.8.0 native libraries with Android NDK 26 and API 24 to prevent exceptions from crossing incompatible C++ runtime boundaries and crashing the AutoJs6 host
 
 ##### For more release history
 

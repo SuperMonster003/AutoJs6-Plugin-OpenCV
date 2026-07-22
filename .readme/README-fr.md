@@ -54,9 +54,10 @@ Le plugin AutoJs6 OpenCV fournit l'environnement d'exécution natif OpenCV 4.8.0
 - ID du plugin: `opencv`
 - Moteur: `opencv`
 - Variante: `4.8.0`
-- Version du contrat: `1`
-- Code de version requis de l'hôte: `5236`
+- Version du contrat: `2`
+- Code de version requis de l'hôte: `5237`
 - Bibliothèque native: `opencv_java4`
+- Version du NDK natif: `26.1.10909125`
 - SHA-256 de l'API Java: `340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f`
 
 Le même service `OpenCvPluginInfoService` répond à `org.autojs.plugin.INFO` et à `org.autojs.plugin.OPENCV`.
@@ -137,6 +138,7 @@ Installez uniquement des builds de confiance. Avant de charger la bibliothèque 
 * `Fonctionnalité` Localisation des métadonnées du plugin, des instructions, du README et du CHANGELOG en espagnol, français, russe, arabe, japonais, coréen, anglais, chinois simplifié, chinois traditionnel de Hong Kong et chinois traditionnel de Taïwan
 * `Fonctionnalité` Ajout de contrôles d'intégrité debug et release pour l'inventaire natif, l'architecture ELF, les hachages des charges utiles, l'empreinte de l'API Java, les classes Java OpenCV en double et les fichiers de licence; la vérification publiable exige aussi une signature configurée
 * `Fonctionnalité` Intégration dans chaque APK des textes complets des licences OpenCV 4.8.0 et des composants tiers statiques; le plugin n'intègre pas `libc++_shared.so`, qu'un hôte AutoJs6 compatible doit fournir et précharger
+* `Correctif` Reconstruction des bibliothèques natives OpenCV 4.8.0 avec Android NDK 26 et l'API 24 afin d'empêcher les exceptions de franchir les limites d'environnements d'exécution C++ incompatibles et de provoquer le plantage de l'hôte AutoJs6
 
 ##### Pour plus d'historique des versions
 

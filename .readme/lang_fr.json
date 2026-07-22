@@ -14,6 +14,7 @@
   "text_contract_version": "Version du contrat",
   "text_required_host_version_code": "Code de version requis de l'hôte",
   "text_native_library": "Bibliothèque native",
+  "text_native_ndk_version": "Version du NDK natif",
   "text_java_api_sha256": "SHA-256 de l'API Java",
   "p_contract_service": "Le même service `OpenCvPluginInfoService` répond à `org.autojs.plugin.INFO` et à `org.autojs.plugin.OPENCV`.",
   "p_contract_binder": "Les deux actions utilisent la catégorie `opencv-runtime`. Leur interface Binder est `IPluginInfoProvider`, fournie par `common-plugin-api`.",

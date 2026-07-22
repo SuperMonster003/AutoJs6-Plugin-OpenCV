@@ -54,9 +54,10 @@ AutoJs6 OpenCV 插件提供 AutoJs6 圖像 API 使用的 OpenCV 4.8.0 原生運�
 - 插件 ID: `opencv`
 - 引擎: `opencv`
 - 變體: `4.8.0`
-- 契約版本: `1`
-- 最低宿主版本代碼: `5236`
+- 契約版本: `2`
+- 最低宿主版本代碼: `5237`
 - 原生庫: `opencv_java4`
+- 原生 NDK 版本: `26.1.10909125`
 - Java API SHA-256: `340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f`
 
 同一個 `OpenCvPluginInfoService` 響應 `org.autojs.plugin.INFO` 和 `org.autojs.plugin.OPENCV`.
@@ -137,6 +138,7 @@ universal
 * `新增` 插件資訊, 使用說明, README 與 CHANGELOG 均支援西班牙語, 法語, 俄語, 阿拉伯語, 日語, 韓語, 英語, 簡體中文, 香港繁體和台灣繁體
 * `新增` 新增 debug 和 release 完整性校驗, 覆蓋原生庫清單, ELF 架構, payload 雜湊, Java API 指紋, 重複 OpenCV Java 類和許可資源; 可發佈構建校驗還要求配置簽名
 * `新增` 每個 APK 均打包 OpenCV 4.8.0 和靜態連結第三方組件的完整許可原文; 插件不打包 `libc++_shared.so`, 兼容的 AutoJs6 宿主必須提供並預先載入此進程級依賴
+* `修復` 將 OpenCV 4.8.0 原生庫改用 Android NDK 26 和 API 24 重建, 避免異常跨越不兼容的 C++ 運行時邊界並導致 AutoJs6 宿主崩潰
 
 ##### 更多發行歷史可參閱
 

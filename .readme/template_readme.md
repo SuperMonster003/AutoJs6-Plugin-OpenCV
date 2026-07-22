@@ -48,6 +48,7 @@
 - {{ text_contract_version }}: `{{ plugin_contract_version }}`
 - {{ text_required_host_version_code }}: `{{ required_host_version_code }}`
 - {{ text_native_library }}: `{{ native_library_name }}`
+- {{ text_native_ndk_version }}: `{{ native_ndk_version }}`
 - {{ text_java_api_sha256 }}: `{{ java_api_sha256 }}`
 
 {{ p_contract_service }}
