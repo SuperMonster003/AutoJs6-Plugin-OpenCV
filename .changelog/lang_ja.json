@@ -1,0 +1,20 @@
+{
+  "changelog_label_hint": "ヒント",
+  "changelog_label_feature": "機能",
+  "changelog_label_fix": "修正",
+  "changelog_label_improvement": "改善",
+  "changelog_label_dependency": "依存関係",
+  "$data": {
+    "v1.0.0": {
+      "released_date": "2026/07/22",
+      "feature": [
+        "AutoJs6 向け OpenCV 4.8.0 ネイティブランタイムプラグインを初回リリース: ホスト側に OpenCV Java API を残し, プラグインから `libopencv_java4.so` を提供",
+        "`org.autojs.plugin.INFO` と `org.autojs.plugin.OPENCV` および `opencv-runtime` カテゴリによる検出に対応し, ホストが必要とする互換性メタデータを追加",
+        "`arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`, `universal` の各 APK バリアントを追加し, 実際にパッケージ化された ABI を動的に報告",
+        "プラグイン情報, 使用説明, README, CHANGELOG をスペイン語, フランス語, ロシア語, アラビア語, 日本語, 韓国語, 英語, 簡体字中国語, 香港繁体字, 台湾繁体字にローカライズ",
+        "debug と release の完全性検証でネイティブライブラリ構成, ELF アーキテクチャ, payload ハッシュ, Java API フィンガープリント, 重複する OpenCV Java クラス, ライセンスアセットを確認; 公開可能なビルドの検証では署名設定も必須",
+        "OpenCV 4.8.0 と静的リンクされたサードパーティコンポーネントの完全なライセンステキストを各 APK に同梱; プラグインには `libc++_shared.so` を含めず, 互換性のある AutoJs6 ホストが提供して先にロードする必要あり"
+      ]
+    }
+  }
+}
