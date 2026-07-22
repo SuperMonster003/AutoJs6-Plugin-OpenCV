@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plugin_description">Plugin del entorno de ejecución nativo de OpenCV 4.8.0 para AutoJs6</string>
+</resources>

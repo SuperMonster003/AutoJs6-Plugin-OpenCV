@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plugin_description">为 AutoJs6 提供 OpenCV 4.8.0 原生运行时</string>
+</resources>
