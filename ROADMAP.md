@@ -15,7 +15,7 @@
 | 里程碑 | 状态 | 核心结果 | 主要落点 |
 |---|---|---|---|
 | M0 基线运行时 | 已完成 | OpenCV 4.8.0 原生运行时与完整性门禁 | 插件/发布 |
-| M1 文档与发布体验 | 进行中 | 用户导向文档, 文档 CI 与发布物料 | 发布 |
+| M1 文档与发布体验 | 已完成 | 用户导向文档, 文档 CI 与发布物料 | 发布 |
 | M2 工程化与持续集成 | 已完成 | 构建/测试/校验流水线与测试矩阵 | 测试/发布 |
 | M3 诊断与兼容性体验 | 已完成 | 自检脚本与"未生效"问题的快速定位 | 插件/发布 |
 | M4 原生运行时演进 | 进行中 | 16 KB 内存页适配与 OpenCV 新变体 | 插件/API/宿主 |
@@ -39,7 +39,7 @@ M0 ──> M1 ──> M2 ──> M3
 
 验收条件: 在版本代码不低于 5237 的 AutoJs6 中安装并启用后, 宿主可发现插件, 通过全部兼容性校验并加载与设备 ABI 匹配的原生库. (已满足)
 
-## M1: 文档与发布体验 (进行中)
+## M1: 文档与发布体验 (已完成)
 
 - [x] (发布) README 重构为用户导向结构: 简介 / 功能亮点 / 使用方法 / 如何选择安装包 / 常见问题 / 权限与安全 / 插件接口 / 开发路线图, 10 种语言全部由 JSON 源再生成.
 - [x] (发布) CHANGELOG 文案面向用户重写: 每条先讲可感知的结果, 再补技术细节, 10 种语言同步.
@@ -48,7 +48,7 @@ M0 ──> M1 ──> M2 ──> M3
 - [x] (发布) 新建本 ROADMAP.md, 并在 README 增加"开发路线图"章节挂链.
 - [x] (发布) Releases 页面发布说明模板化: `.github/RELEASE_TEMPLATE.md` 提供选包速查表, `scripts/release/prepare_release.py` 从实际 5 个 APK 与当前英文 CHANGELOG 生成无占位符的 `RELEASE_NOTES.md`, 并逐包写入 SHA-256 与 `SHA256SUMS.txt`; 经 AAR 哈希与 16 KB 对齐元数据复核的 provenance JSON 同步归集, 完整发布清单见 `RELEASING.md`.
 - [x] (发布) 提供插件在 AutoJs6 插件中心内被识别与启用状态的真实界面截图 (`docs/images/screenshots/plugin-center-enabled.png`), 由 `.readme/template_readme.md` 与 10 语言说明共同接入 README 生成链路, 文档门禁同时校验 PNG 签名与最小尺寸.
-- [ ] (发布) 文档整改后的首个对外版本: 更新 `version.properties`, 补充对应 CHANGELOG 条目并发布 Release.
+- [x] (发布) 文档整改后的首个对外版本: `version.properties` 与 10 语言 CHANGELOG 已更新至 v1.1.0, 并发布 [GitHub Release v1.1.0](https://github.com/SuperMonster003/AutoJs6-Plugin-OpenCV/releases/tag/v1.1.0), 5 个 APK 与 2 个校验资产均已回下载复核.
 
 验收条件: `py .python/generate_markdown.py --check` 在本地与 CI 全绿; 新用户仅凭 README 即可独立完成选包, 安装与生效确认.
 
@@ -75,7 +75,7 @@ M0 ──> M1 ──> M2 ──> M3
 - [x] (测试) 校验门禁增加直接解析 ELF32/ELF64 program header 的 `PT_LOAD` 对齐检查, 同时校验 offset/vaddr 同余与 provenance 对齐字段, 防止未对齐 AAR 或 APK 产物混入发布.
 - [ ] (API/宿主) OpenCV 新变体 (如 4.1x): 待宿主发布对应的 OpenCV Java API 与契约支持后, 以并行 variant 形式发布新插件包, 4.8.0 包继续服役, 互不影响.
 - [ ] (插件) 契约版本演进跟进: 宿主发布 contract v3 后补充所需元数据并保持对 v2 宿主的兼容.
-- [ ] (发布) provenance JSON 随每个 Release 附带, 并提供第三方复现核对指引. (本地 Release 脚本与说明已自动归集/校验该资产; 待首个对外 Release 实际上传并回下载核验后勾选.)
+- [x] (发布) provenance JSON 随每个 Release 附带, 并提供第三方复现核对指引; v1.1.0 已实际上传并回下载核验, SHA-256 为 `0d1de0c55c945c90b9e9d8b2ab2948660134e3a20c7274623d035450343afe49`.
 
 验收条件: 16 KB 构建与新变体均通过既有完整性门禁与真机加载验证, 且现有设备行为不回归; 新变体条目仅在宿主发布对应能力后开始实施.
 
