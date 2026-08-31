@@ -5,18 +5,31 @@
   "changelog_label_improvement": "Improvement",
   "changelog_label_dependency": "Dependency",
   "$data": {
+    "v1.1.0": {
+      "released_date": "2026/08/31",
+      "feature": [
+        "Release downloads now bundle the 5 architecture APKs, `SHA256SUMS.txt`, and the native-build provenance manifest so users can select the right package and verify files independently"
+      ],
+      "fix": [
+        "Rebuilt all 4 ABI native libraries with 16 KB `PT_LOAD` alignment and added release gates so OpenCV loads on 16 KB page-size Android devices while remaining compatible with 4 KB devices"
+      ],
+      "improvement": [
+        "Expanded the plugin-center instructions and 10-language README with a real enabled-state screenshot and a runnable self-check that prints the OpenCV version and process ABI",
+        "Made supported-ABI reporting resilient across universal, single-ABI, and split installs, including missing or corrupt APK paths and extracted-library fallback"
+      ]
+    },
     "v1.0.0": {
       "released_date": "2026/07/22",
       "feature": [
-        "Released the OpenCV 4.8.0 native runtime plugin for AutoJs6: the host retains the OpenCV Java API while the plugin supplies `libopencv_java4.so`",
-        "Added discovery through `org.autojs.plugin.INFO` and `org.autojs.plugin.OPENCV` with the `opencv-runtime` category, including compatibility metadata required by the host",
-        "Added APK variants for `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`, and `universal`, with dynamic reporting of the ABIs actually packaged",
-        "Localized plugin metadata, instructions, README, and CHANGELOG for Spanish, French, Russian, Arabic, Japanese, Korean, English, Simplified Chinese, Hong Kong Traditional Chinese, and Taiwan Traditional Chinese",
-        "Added debug and release integrity checks for native inventory, ELF architecture, payload hashes, the Java API fingerprint, duplicate OpenCV Java classes, and license assets; publishable verification also requires configured signing",
-        "Packaged the complete OpenCV 4.8.0 and static third-party license texts in every APK; the plugin does not package `libc++_shared.so`, which a compatible AutoJs6 host must supply and preload"
+        "Initial release: supplies the OpenCV 4.8.0 native runtime behind the AutoJs6 image APIs; the host retains the OpenCV Java API called by scripts, while the plugin carries the exactly matching `libopencv_java4.so`",
+        "Automatic discovery and compatibility negotiation with AutoJs6 through the `org.autojs.plugin.INFO` and `org.autojs.plugin.OPENCV` actions (`opencv-runtime` category), exposing version, contract, and fingerprint metadata to the host",
+        "Five APK flavors: `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`, plus an all-in-one `universal` package, with supported architectures reported dynamically from the actual APK contents",
+        "Plugin metadata, instructions, README, and changelog available in 10 languages: Simplified Chinese, Traditional Chinese (Hong Kong and Taiwan), English, French, Spanish, Japanese, Korean, Russian, and Arabic",
+        "Built-in build gates verifying the native library inventory, ELF architectures, payload hashes, the Java API fingerprint, duplicate OpenCV Java classes, and license assets; publishable builds additionally require a trusted signing identity",
+        "Complete license texts of OpenCV 4.8.0 and its statically linked third-party components packaged in every APK; `libc++_shared.so` is supplied and preloaded by a compatible AutoJs6 host instead of being duplicated in the plugin"
       ],
       "fix": [
-        "Rebuilt the OpenCV 4.8.0 native libraries with Android NDK 26 and API 24 to prevent exceptions from crossing incompatible C++ runtime boundaries and crashing the AutoJs6 host"
+        "Rebuilt the OpenCV 4.8.0 native libraries from official sources with Android NDK 26 (API 24) so that plugin and host share the same C++ runtime family, fixing AutoJs6 crashes caused by exceptions crossing incompatible runtime boundaries"
       ]
     }
   }

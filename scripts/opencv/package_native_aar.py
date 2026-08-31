@@ -20,6 +20,7 @@ OPENCV_TAG_OBJECT = "53296de62872b5e7d042ddffb49679fbdcca99f6"
 OPENCV_COMMIT = "f9a59f2592993d3dcc080e495f4f5e02dd8ec7ef"
 NDK_VERSION = "26.1.10909125"
 MIN_SDK = 24
+MIN_LOAD_SEGMENT_ALIGNMENT = 16 * 1024
 
 
 def sha256(path: Path) -> str:
@@ -61,6 +62,7 @@ def empty_jar() -> bytes:
 def inspect_library(readelf: Path, library: Path) -> dict[str, str | int | list[str]]:
     notes = command_output(readelf, "--notes", library)
     dynamic = command_output(readelf, "--dynamic", library)
+    program_headers = command_output(readelf, "--program-headers", "--wide", library)
     ident_match = re.search(
         r"description data:\s+((?:[0-9a-f]{2}\s*)+)",
         notes,
@@ -83,12 +85,25 @@ def inspect_library(readelf: Path, library: Path) -> dict[str, str | int | list[
     needed_libraries = re.findall(r"Shared library: \[([^]]+)]", dynamic)
     if "libc++_shared.so" not in needed_libraries:
         raise RuntimeError(f"OpenCV does not depend on libc++_shared.so: {library}")
+    load_segment_alignments = [
+        int(line.split()[-1], 16)
+        for line in program_headers.splitlines()
+        if line.lstrip().startswith("LOAD ")
+    ]
+    if not load_segment_alignments:
+        raise RuntimeError(f"OpenCV has no ELF LOAD segments: {library}")
+    if any(alignment < MIN_LOAD_SEGMENT_ALIGNMENT for alignment in load_segment_alignments):
+        raise RuntimeError(
+            f"OpenCV ELF LOAD segment alignment is below {MIN_LOAD_SEGMENT_ALIGNMENT} "
+            f"in {library}: {load_segment_alignments}"
+        )
     return {
         "sha256": sha256(library),
         "sizeBytes": library.stat().st_size,
         "gnuBuildId": build_id_match.group(1).lower(),
         "androidApiLevel": api_level,
         "androidNdkRelease": ndk_release,
+        "loadSegmentAlignments": load_segment_alignments,
         "neededLibraries": needed_libraries,
     }
 
@@ -160,7 +175,7 @@ def main() -> None:
     temporary_output.replace(args.output)
 
     provenance = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "opencv": {
             "version": OPENCV_VERSION,
             "repository": "https://github.com/opencv/opencv.git",
@@ -178,6 +193,7 @@ def main() -> None:
             "compilerIdent": compiler_ident,
             "stl": "c++_shared",
             "libcxxSharedPackaged": False,
+            "elfLoadSegmentAlignmentBytes": MIN_LOAD_SEGMENT_ALIGNMENT,
         },
         "artifact": {
             "path": "libs/opencv-native-4.8.0.aar",

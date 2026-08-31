@@ -4,14 +4,23 @@
 
 ******
 
+# v1.1.0
+
+###### 2026/08/31
+
+* `新增` 发布下载现统一包含 5 个架构安装包, `SHA256SUMS.txt` 与原生构建 provenance 清单, 便于按设备选包并独立核验文件
+* `修复` 以 16 KB `PT_LOAD` 对齐重新构建 4 个 ABI 的原生库并加入发布门禁, 使 OpenCV 可在 16 KB page-size Android 设备上加载, 同时保持对 4 KB 设备的兼容
+* `优化` 扩充插件中心说明与 10 语言 README: 加入真实启用状态截图和可直接运行的自检脚本, 输出 OpenCV 版本与当前进程 ABI
+* `优化` 增强支持 ABI 的识别逻辑: 覆盖 universal, 单架构与 split 安装, 并能在 APK 路径缺失或损坏时继续扫描或使用已提取原生库回退
+
 # v1.0.0
 
 ###### 2026/07/22
 
-* `新增` 首次发布面向 AutoJs6 的 OpenCV 4.8.0 原生运行时插件: 宿主保留 OpenCV Java API, 插件提供 `libopencv_java4.so`
-* `新增` 支持通过 `org.autojs.plugin.INFO` 和 `org.autojs.plugin.OPENCV` 以及 `opencv-runtime` category 发现插件, 并提供宿主所需的兼容性元数据
-* `新增` 支持 `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` 和 `universal` APK, 并动态上报实际打包的 ABI
-* `新增` 插件信息, 使用说明, README 与 CHANGELOG 均支持西班牙语, 法语, 俄语, 阿拉伯语, 日语, 韩语, 英语, 简体中文, 香港繁体和台湾繁体
-* `新增` 新增 debug 和 release 完整性校验, 覆盖原生库清单, ELF 架构, payload 哈希, Java API 指纹, 重复 OpenCV Java 类和许可资源; 可发布构建校验还要求配置签名
-* `新增` 每个 APK 均打包 OpenCV 4.8.0 和静态第三方组件的完整许可原文; 插件不打包 `libc++_shared.so`, 兼容的 AutoJs6 宿主必须提供并预加载此进程级依赖
-* `修复` 将 OpenCV 4.8.0 原生库改用 Android NDK 26 和 API 24 重建, 避免异常跨越不兼容的 C++ 运行时边界并导致 AutoJs6 宿主崩溃
+* `新增` 首个正式版本: 为 AutoJs6 的图像 API 提供 OpenCV 4.8.0 原生运行时, 宿主保留脚本调用的 OpenCV Java API, 插件携带与之精确匹配的 `libopencv_java4.so`
+* `新增` 支持被 AutoJs6 自动发现与兼容性协商: 通过 `org.autojs.plugin.INFO` 与 `org.autojs.plugin.OPENCV` action (`opencv-runtime` category) 向宿主提供版本, 契约与指纹等元数据
+* `新增` 提供 `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` 四种单架构安装包与包含全部架构的 `universal` 包, 并按安装包实际内容动态上报支持的架构
+* `新增` 插件信息, 使用说明, README 与更新日志覆盖 10 种语言: 简体中文, 香港繁体, 台湾繁体, 英语, 法语, 西班牙语, 日语, 韩语, 俄语与阿拉伯语
+* `新增` 内置构建门禁: 校验原生库清单, ELF 架构, payload 哈希, Java API 指纹, 重复 OpenCV Java 类与许可资源, 发布构建还要求配置受信任的签名身份
+* `新增` 每个安装包内置 OpenCV 4.8.0 及其静态第三方组件的完整许可原文; `libc++_shared.so` 由兼容的 AutoJs6 宿主统一提供并预加载, 插件不重复打包
+* `修复` 改用 Android NDK 26 (API 24) 从官方源码重建 OpenCV 4.8.0 原生库, 使插件与宿主共用同源 C++ 运行时, 修复异常跨越不兼容运行时边界导致 AutoJs6 崩溃的问题

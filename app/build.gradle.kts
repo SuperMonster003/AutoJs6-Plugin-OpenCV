@@ -24,6 +24,7 @@ val openCvNativeLibrary = "opencv_java4"
 val openCvNativeNdkVersion = "26.1.10909125"
 val openCvNativeNdkReleasePattern = Regex("r26b")
 val openCvNativeApiLevel = 24
+val openCvElfMinLoadAlignment = 16 * 1024
 val openCvJavaApiSha256 = "340976552fda3cce525021f0b072427cabf0aa1c786fb80cfc4a3a8105d90b3f"
 val requiredHostVersionCode = 5237L
 val supportedAbis = listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
@@ -124,6 +125,63 @@ fun ByteArray.readElfUnsigned(offset: Int, size: Int, littleEndian: Boolean): Lo
         value = value or ((this[sourceIndex].toLong() and 0xffL) shl (index * 8))
     }
     return value
+}
+
+fun verifyElfLoadSegmentAlignment(payload: ByteArray, abi: String, minimumAlignment: Int): List<Long> {
+    if (payload.size < 64 || !payload.copyOfRange(0, 4).contentEquals(byteArrayOf(0x7f, 0x45, 0x4c, 0x46))) {
+        throw GradleException("OpenCV payload for $abi is not a complete ELF file")
+    }
+    val elfClass = payload[4].toInt() and 0xff
+    val littleEndian = when (payload[5].toInt() and 0xff) {
+        1 -> true
+        2 -> false
+        else -> throw GradleException("OpenCV payload for $abi has an unsupported ELF byte order")
+    }
+    val programHeaderOffset = when (elfClass) {
+        1 -> payload.readElfUnsigned(28, 4, littleEndian)
+        2 -> payload.readElfUnsigned(32, 8, littleEndian)
+        else -> throw GradleException("OpenCV payload for $abi has an unsupported ELF class: $elfClass")
+    }
+    val programHeaderEntrySize = when (elfClass) {
+        1 -> payload.readElfUnsigned(42, 2, littleEndian)
+        else -> payload.readElfUnsigned(54, 2, littleEndian)
+    }.toInt()
+    val programHeaderCount = when (elfClass) {
+        1 -> payload.readElfUnsigned(44, 2, littleEndian)
+        else -> payload.readElfUnsigned(56, 2, littleEndian)
+    }.toInt()
+    val minimumEntrySize = if (elfClass == 1) 32 else 56
+    if (programHeaderOffset > Int.MAX_VALUE ||
+        programHeaderEntrySize < minimumEntrySize ||
+        programHeaderCount <= 0 ||
+        programHeaderOffset + programHeaderEntrySize.toLong() * programHeaderCount > payload.size
+    ) {
+        throw GradleException("OpenCV ELF program header table is invalid for $abi")
+    }
+
+    val alignments = mutableListOf<Long>()
+    for (index in 0 until programHeaderCount) {
+        val header = programHeaderOffset.toInt() + index * programHeaderEntrySize
+        val type = payload.readElfUnsigned(header, 4, littleEndian)
+        if (type != 1L) continue
+        val fileOffset = payload.readElfUnsigned(header + if (elfClass == 1) 4 else 8, if (elfClass == 1) 4 else 8, littleEndian)
+        val virtualAddress = payload.readElfUnsigned(header + if (elfClass == 1) 8 else 16, if (elfClass == 1) 4 else 8, littleEndian)
+        val alignment = payload.readElfUnsigned(header + if (elfClass == 1) 28 else 48, if (elfClass == 1) 4 else 8, littleEndian)
+        if (alignment < minimumAlignment ||
+            (alignment and (alignment - 1)) != 0L ||
+            fileOffset % alignment != virtualAddress % alignment
+        ) {
+            throw GradleException(
+                "OpenCV ELF LOAD alignment mismatch for $abi: " +
+                    "alignment=$alignment offset=$fileOffset vaddr=$virtualAddress; minimum=$minimumAlignment",
+            )
+        }
+        alignments += alignment
+    }
+    if (alignments.isEmpty()) {
+        throw GradleException("OpenCV ELF has no LOAD segments for $abi")
+    }
+    return alignments
 }
 
 fun alignElfNote(value: Int): Int = (value + 3) and -4
@@ -269,6 +327,7 @@ fun verifyNativeOnlyOpenCvAar(
                 ?: throw GradleException("Native-only AAR is missing $abi")
             val payload = aar.getInputStream(entry).use { it.readBytes() }
             verifyElfHeader(payload.copyOf(minOf(payload.size, 20)), abi)
+            verifyElfLoadSegmentAlignment(payload, abi, openCvElfMinLoadAlignment)
             verifyAndroidNativeIdent(payload, abi, expectedApiLevel, expectedNdkReleasePattern)
             hashes[abi] = payload.sha256Hex()
         }
@@ -307,7 +366,8 @@ fun verifyOpenCvNativeProvenance(
         build["cmakeVersion"] != "3.22.1" ||
         (build["compilerIdent"] as? String)?.contains("clang version 17.0.2") != true ||
         build["stl"] != "c++_shared" ||
-        build["libcxxSharedPackaged"] != false
+        build["libcxxSharedPackaged"] != false ||
+        (build["elfLoadSegmentAlignmentBytes"] as? Number)?.toInt() != openCvElfMinLoadAlignment
     ) {
         throw GradleException("Unexpected OpenCV native build provenance: $build")
     }
@@ -324,7 +384,11 @@ fun verifyOpenCvNativeProvenance(
             (metadata["androidApiLevel"] as? Number)?.toInt() != expectedApiLevel ||
             metadata["androidNdkRelease"] !is String ||
             !openCvNativeNdkReleasePattern.matches(metadata["androidNdkRelease"] as String) ||
-            (metadata["neededLibraries"] as? Collection<*>)?.contains("libc++_shared.so") != true
+            (metadata["neededLibraries"] as? Collection<*>)?.contains("libc++_shared.so") != true ||
+            (metadata["loadSegmentAlignments"] as? Collection<*>)
+                ?.mapNotNull { (it as? Number)?.toLong() }
+                ?.takeIf { it.isNotEmpty() }
+                ?.all { it >= openCvElfMinLoadAlignment } != true
         ) {
             throw GradleException("OpenCV provenance mismatch for $abi: $metadata")
         }
@@ -513,6 +577,7 @@ fun verifyOpenCvApk(
                 ?: throw GradleException("${apk.name} is missing $path")
             val payload = zip.getInputStream(entry).use { it.readBytes() }
             verifyElfHeader(payload.copyOf(minOf(payload.size, 20)), abi)
+            verifyElfLoadSegmentAlignment(payload, abi, openCvElfMinLoadAlignment)
             verifyAndroidNativeIdent(payload, abi, expectedApiLevel, expectedNdkReleasePattern)
             if (payload.sha256Hex() != nativeHashes.getValue(abi)) {
                 throw GradleException("OpenCV payload hash mismatch in ${apk.name} for $abi")
@@ -623,6 +688,7 @@ android {
         applicationId = globalApplicationId
         minSdk = versions.sdkVersionMin
         targetSdk = versions.sdkVersionTarget
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         versionCode = versions.appVersionCode
         versionName = versions.appVersionName
 
@@ -729,6 +795,8 @@ dependencies {
     implementation(files("$rootDir/libs/opencv-native-4.8.0.aar"))
 
     testImplementation(libs.junit)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.runner)
 }
 
 tasks {

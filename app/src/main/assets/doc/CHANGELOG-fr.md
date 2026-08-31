@@ -4,14 +4,23 @@
 
 ******
 
+# v1.1.0
+
+###### 2026/08/31
+
+* `Fonctionnalité` Les téléchargements de la version regroupent désormais les 5 APK d'architecture, `SHA256SUMS.txt` et le manifeste de provenance de la compilation native afin de choisir le bon paquet et de vérifier indépendamment les fichiers
+* `Correctif` Les bibliothèques natives des 4 ABI ont été reconstruites avec des segments `PT_LOAD` alignés sur 16 Ko et protégées par un contrôle de publication afin qu'OpenCV se charge sur les appareils Android à pages de 16 Ko tout en restant compatible avec ceux à pages de 4 Ko
+* `Amélioration` Les instructions du centre de plugins et le README en 10 langues incluent maintenant une capture réelle de l'état activé et un script d'auto-vérification exécutable affichant la version d'OpenCV et l'ABI du processus
+* `Amélioration` La détection des ABI pris en charge couvre désormais les installations universal, mono-ABI et split, poursuit l'analyse malgré des APK manquants ou corrompus et utilise au besoin la bibliothèque native extraite
+
 # v1.0.0
 
 ###### 2026/07/22
 
-* `Fonctionnalité` Ajout du plugin d'environnement d'exécution natif OpenCV 4.8.0 pour AutoJs6: l'hôte conserve l'API Java d'OpenCV tandis que le plugin fournit `libopencv_java4.so`
-* `Fonctionnalité` Ajout de la détection via `org.autojs.plugin.INFO` et `org.autojs.plugin.OPENCV` avec la catégorie `opencv-runtime`, ainsi que des métadonnées de compatibilité requises par l'hôte
-* `Fonctionnalité` Ajout des APK `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` et `universal`, avec signalement dynamique des ABI réellement intégrées
-* `Fonctionnalité` Localisation des métadonnées du plugin, des instructions, du README et du CHANGELOG en espagnol, français, russe, arabe, japonais, coréen, anglais, chinois simplifié, chinois traditionnel de Hong Kong et chinois traditionnel de Taïwan
-* `Fonctionnalité` Ajout de contrôles d'intégrité debug et release pour l'inventaire natif, l'architecture ELF, les hachages des charges utiles, l'empreinte de l'API Java, les classes Java OpenCV en double et les fichiers de licence; la vérification publiable exige aussi une signature configurée
-* `Fonctionnalité` Intégration dans chaque APK des textes complets des licences OpenCV 4.8.0 et des composants tiers statiques; le plugin n'intègre pas `libc++_shared.so`, qu'un hôte AutoJs6 compatible doit fournir et précharger
-* `Correctif` Reconstruction des bibliothèques natives OpenCV 4.8.0 avec Android NDK 26 et l'API 24 afin d'empêcher les exceptions de franchir les limites d'environnements d'exécution C++ incompatibles et de provoquer le plantage de l'hôte AutoJs6
+* `Fonctionnalité` Première version officielle: fournit l'environnement d'exécution natif OpenCV 4.8.0 derrière les API d'image d'AutoJs6; l'hôte conserve l'API Java d'OpenCV appelée par les scripts, tandis que le plugin embarque `libopencv_java4.so` qui lui correspond exactement
+* `Fonctionnalité` Découverte automatique et négociation de compatibilité avec AutoJs6 via les actions `org.autojs.plugin.INFO` et `org.autojs.plugin.OPENCV` (catégorie `opencv-runtime`), en exposant à l'hôte les métadonnées de version, de contrat et d'empreinte
+* `Fonctionnalité` Cinq variantes d'APK: `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`, plus un paquet `universal` tout-en-un, avec signalement dynamique des architectures prises en charge d'après le contenu réel de l'APK
+* `Fonctionnalité` Métadonnées du plugin, instructions, README et changelog disponibles en 10 langues: chinois simplifié, chinois traditionnel (Hong Kong et Taïwan), anglais, français, espagnol, japonais, coréen, russe et arabe
+* `Fonctionnalité` Contrôles de compilation intégrés vérifiant l'inventaire des bibliothèques natives, les architectures ELF, les hachages des charges utiles, l'empreinte de l'API Java, les classes Java OpenCV en double et les ressources de licence; les compilations publiables exigent en outre une identité de signature de confiance
+* `Fonctionnalité` Textes complets des licences d'OpenCV 4.8.0 et de ses composants tiers liés statiquement intégrés à chaque APK; `libc++_shared.so` est fourni et préchargé par un hôte AutoJs6 compatible au lieu d'être dupliqué dans le plugin
+* `Correctif` Reconstruction des bibliothèques natives OpenCV 4.8.0 depuis les sources officielles avec Android NDK 26 (API 24) afin que le plugin et l'hôte partagent la même famille d'environnements d'exécution C++, corrigeant les plantages d'AutoJs6 causés par des exceptions franchissant des frontières d'environnements d'exécution incompatibles

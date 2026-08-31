@@ -29,7 +29,7 @@ if ([string]::IsNullOrWhiteSpace($AndroidSdk)) {
 $AndroidSdk = (Resolve-Path -LiteralPath $AndroidSdk).Path
 
 if ([string]::IsNullOrWhiteSpace($WorkDirectory)) {
-    $WorkDirectory = Join-Path $projectDirectory "build\opencv-native-ndk26"
+    $WorkDirectory = Join-Path $projectDirectory "build\opencv-native-ndk26-ps16k"
 }
 $WorkDirectory = [System.IO.Path]::GetFullPath($WorkDirectory)
 $sourceDirectory = Join-Path $WorkDirectory "opencv-4.8.0"
@@ -38,6 +38,7 @@ $ndkDirectory = Join-Path $AndroidSdk "ndk\26.1.10909125"
 $cmakeBin = Join-Path $AndroidSdk "cmake\3.22.1\bin"
 $expectedTagObject = "53296de62872b5e7d042ddffb49679fbdcca99f6"
 $expectedCommit = "f9a59f2592993d3dcc080e495f4f5e02dd8ec7ef"
+$elfMaxPageSize = 16384
 
 if (-not (Test-Path -LiteralPath (Join-Path $ndkDirectory "source.properties"))) {
     throw "Android NDK 26.1.10909125 is not installed under $AndroidSdk"
@@ -124,6 +125,7 @@ try {
             "-DCMAKE_MAKE_PROGRAM=$cmakeBin\ninja.exe",
             "-DCMAKE_TOOLCHAIN_FILE=$ndkDirectory\build\cmake\android.toolchain.cmake",
             "-DCMAKE_BUILD_TYPE=Release",
+            "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=$elfMaxPageSize",
             "-DINSTALL_CREATE_DISTRIB=ON",
             "-DWITH_OPENCL=OFF",
             "-DBUILD_KOTLIN_EXTENSIONS=OFF",

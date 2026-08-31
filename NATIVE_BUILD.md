@@ -17,6 +17,9 @@ binary release.
 - JDK used for OpenCV Java binding discovery: `17`
 - Python used by OpenCV's Java binding generator: `3.10` or newer
 - ABIs: `arm64-v8a`, `armeabi-v7a`, `x86`, and `x86_64`
+- ELF `PT_LOAD` minimum alignment: `16384` bytes (`0x4000`), supplied explicitly
+  to the NDK r26b linker so the host-compatible runtime can load on 16 KB page
+  size devices
 
 The build uses OpenCV's official CMake project with every pinned option in
 [`scripts/opencv/build-native-aar.ps1`](scripts/opencv/build-native-aar.ps1).
@@ -43,6 +46,8 @@ and deterministically packages only `libopencv_java4.so` into
 `libs/opencv-native-4.8.0.aar`. It writes the AAR and per-ABI SHA-256 hashes,
 GNU Build IDs, Android API level, NDK release ident, and compiler ident to
 [`libs/opencv-native-4.8.0.provenance.json`](libs/opencv-native-4.8.0.provenance.json).
+The manifest also records every ELF `PT_LOAD` alignment; packaging fails if any
+segment is aligned below 16 KB.
 
 Run the normal release gate after rebuilding:
 
@@ -52,7 +57,8 @@ Run the normal release gate after rebuilding:
 
 The gate rejects unexpected ABIs or native libraries, an Android NDK ident
 other than `r26b`, a native API level other than 24, provenance/hash drift,
-and missing contract v2 NDK metadata in either the application or service.
+ELF `PT_LOAD` alignment below 16 KB, and missing contract v2 NDK metadata in
+either the application or service.
 
 ## 原生构建来源
 
@@ -61,5 +67,6 @@ and missing contract v2 NDK metadata in either the application or service.
 `26.1.10909125`, API 24, CMake 3.22.1 和 JDK 17. 上述 PowerShell 脚本会校验
 输入版本, 通过 OpenCV 官方 CMake 工程仅构建 `opencv_java` 目标, 生成仅包含
 OpenCV JNI 的 AAR,
-并将每个 ABI 的哈希, Build ID, Android ident 和编译器标识写入 provenance JSON.
+并通过 `-Wl,-z,max-page-size=16384` 生成兼容 16 KB 内存页的 ELF, 将每个 ABI
+的哈希, Build ID, Android ident, `PT_LOAD` 对齐值和编译器标识写入 provenance JSON.
 插件不会携带 `libc++_shared.so`, 该进程级运行时由兼容的 AutoJs6 宿主统一提供.

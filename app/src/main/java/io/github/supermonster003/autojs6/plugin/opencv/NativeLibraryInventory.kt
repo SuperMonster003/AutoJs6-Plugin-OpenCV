@@ -10,8 +10,25 @@ internal object NativeLibraryInventory {
 
     fun supportedAbis(context: Context): Array<String> {
         val applicationInfo = context.applicationInfo
+        return supportedAbisFromApks(
+            apkPaths = (listOfNotNull(applicationInfo.sourceDir) + applicationInfo.splitSourceDirs.orEmpty()).map(::File),
+            extractedLibrary = applicationInfo.nativeLibraryDir?.let {
+                File(it, OpenCvPluginContract.NATIVE_LIBRARY_FILE_NAME)
+            },
+            is64Bit = android.os.Process.is64Bit(),
+            supported32BitAbis = Build.SUPPORTED_32_BIT_ABIS.toList(),
+            supported64BitAbis = Build.SUPPORTED_64_BIT_ABIS.toList(),
+        )
+    }
+
+    fun supportedAbisFromApks(
+        apkPaths: Iterable<File>,
+        extractedLibrary: File?,
+        is64Bit: Boolean,
+        supported32BitAbis: List<String>,
+        supported64BitAbis: List<String>,
+    ): Array<String> {
         val entries = buildSet {
-            val apkPaths = listOfNotNull(applicationInfo.sourceDir) + applicationInfo.splitSourceDirs.orEmpty()
             apkPaths.forEach { path ->
                 runCatching {
                     ZipFile(path).use { zip ->
@@ -26,12 +43,11 @@ internal object NativeLibraryInventory {
         val packagedAbis = supportedAbis(entries)
         if (packagedAbis.isNotEmpty()) return packagedAbis
 
-        val extractedLibrary = File(applicationInfo.nativeLibraryDir, OpenCvPluginContract.NATIVE_LIBRARY_FILE_NAME)
         val loadedAbi = processSupportedAbis(
-            is64Bit = android.os.Process.is64Bit(),
-            supported32BitAbis = Build.SUPPORTED_32_BIT_ABIS.toList(),
-            supported64BitAbis = Build.SUPPORTED_64_BIT_ABIS.toList(),
-        ).firstOrNull().takeIf { extractedLibrary.isFile }
+            is64Bit = is64Bit,
+            supported32BitAbis = supported32BitAbis,
+            supported64BitAbis = supported64BitAbis,
+        ).firstOrNull { it in OpenCvPluginContract.SUPPORTED_ABIS }.takeIf { extractedLibrary?.isFile == true }
         return listOfNotNull(loadedAbi).toTypedArray()
     }
 

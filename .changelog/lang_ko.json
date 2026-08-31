@@ -5,18 +5,31 @@
   "changelog_label_improvement": "개선",
   "changelog_label_dependency": "의존성",
   "$data": {
+    "v1.1.0": {
+      "released_date": "2026/08/31",
+      "feature": [
+        "릴리스 다운로드에 5개 아키텍처 APK, `SHA256SUMS.txt`, 네이티브 빌드 provenance 매니페스트를 함께 제공하여 기기에 맞는 패키지를 선택하고 파일을 독립적으로 검증할 수 있게 했습니다"
+      ],
+      "fix": [
+        "4개 ABI 네이티브 라이브러리를 16 KB `PT_LOAD` 정렬로 다시 빌드하고 릴리스 검증을 추가하여 4 KB 기기 호환성을 유지하면서 16 KB page-size Android 기기에서 OpenCV를 로드할 수 있게 했습니다"
+      ],
+      "improvement": [
+        "플러그인 센터 안내와 10개 언어 README에 실제 활성화 상태 스크린샷과 OpenCV 버전 및 프로세스 ABI를 출력하는 실행 가능한 자체 점검 스크립트를 추가했습니다",
+        "지원 ABI 감지를 universal, 단일 ABI, split 설치까지 확장하고 APK 경로가 없거나 손상되어도 스캔을 계속하거나 추출된 네이티브 라이브러리로 대체할 수 있게 했습니다"
+      ]
+    },
     "v1.0.0": {
       "released_date": "2026/07/22",
       "feature": [
-        "AutoJs6용 OpenCV 4.8.0 네이티브 런타임 플러그인 최초 릴리스: 호스트는 OpenCV Java API를 유지하고 플러그인은 `libopencv_java4.so`를 제공",
-        "`org.autojs.plugin.INFO` 및 `org.autojs.plugin.OPENCV`와 `opencv-runtime` 카테고리를 통한 검색을 지원하고 호스트에 필요한 호환성 메타데이터를 추가",
-        "`arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` 및 `universal` APK 변형을 추가하고 실제 패키징된 ABI를 동적으로 보고",
-        "플러그인 정보, 사용 설명, README 및 CHANGELOG를 스페인어, 프랑스어, 러시아어, 아랍어, 일본어, 한국어, 영어, 간체 중국어, 홍콩 번체 및 대만 번체로 현지화",
-        "debug 및 release 무결성 검증에서 네이티브 라이브러리 목록, ELF 아키텍처, payload 해시, Java API 지문, 중복 OpenCV Java 클래스 및 라이선스 애셋을 확인; 게시 가능한 빌드 검증에는 서명 설정도 필요",
-        "OpenCV 4.8.0과 정적으로 연결된 타사 구성 요소의 전체 라이선스 원문을 각 APK에 포함; 플러그인은 `libc++_shared.so`를 패키징하지 않으며 호환되는 AutoJs6 호스트가 이를 제공하고 먼저 로드해야 함"
+        "첫 정식 릴리스: AutoJs6의 이미지 API를 위해 OpenCV 4.8.0 네이티브 런타임을 제공. 호스트는 스크립트가 호출하는 OpenCV Java API를 유지하고, 플러그인은 이에 정확히 일치하는 `libopencv_java4.so`를 포함",
+        "AutoJs6의 자동 발견과 호환성 협상을 지원: `org.autojs.plugin.INFO` 및 `org.autojs.plugin.OPENCV` action (`opencv-runtime` category)을 통해 버전, 계약, 지문 등의 메타데이터를 호스트에 제공",
+        "`arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` 네 가지 단일 아키텍처 설치 패키지와 모든 아키텍처를 포함한 `universal` 패키지를 제공하고, 설치 패키지의 실제 내용에 따라 지원 아키텍처를 동적으로 보고",
+        "플러그인 정보, 사용 설명, README 및 CHANGELOG가 10개 언어를 지원: 간체 중국어, 홍콩 번체, 대만 번체, 영어, 프랑스어, 스페인어, 일본어, 한국어, 러시아어 및 아랍어",
+        "빌드 게이트 내장: 네이티브 라이브러리 목록, ELF 아키텍처, payload 해시, Java API 지문, 중복 OpenCV Java 클래스 및 라이선스 애셋을 검증하며, 게시용 빌드에는 신뢰할 수 있는 서명 ID 설정도 요구",
+        "각 설치 패키지에 OpenCV 4.8.0과 정적으로 연결된 타사 구성 요소의 전체 라이선스 원문을 내장. `libc++_shared.so`는 호환되는 AutoJs6 호스트가 일괄 제공하고 미리 로드하며, 플러그인은 중복 패키징하지 않음"
       ],
       "fix": [
-        "OpenCV 4.8.0 네이티브 라이브러리를 Android NDK 26 및 API 24로 재빌드하여 예외가 호환되지 않는 C++ 런타임 경계를 넘어 AutoJs6 호스트를 비정상 종료시키는 문제를 방지"
+        "Android NDK 26 (API 24)으로 공식 소스에서 OpenCV 4.8.0 네이티브 라이브러리를 재빌드해 플러그인과 호스트가 같은 계열의 C++ 런타임을 공유하도록 하여, 예외가 호환되지 않는 런타임 경계를 넘어 AutoJs6를 비정상 종료시키는 문제를 수정"
       ]
     }
   }

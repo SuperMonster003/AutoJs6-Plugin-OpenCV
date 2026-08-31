@@ -2,18 +2,15 @@
 
 <div align="center">
   <p>
-    <img src="{{ repo_url }}/blob/master/app/src/main/res/mipmap/ic_launcher.png?raw=true" alt="autojs6-plugin-opencv-ic-launcher" border="0" width="128" />
+    <img src="{{ repo_url }}/blob/master/app/src/main/res/mipmap/ic_launcher.png?raw=true" alt="{{ icon_alt }}" border="0" width="128" />
   </p>
 
   <p>{{ text_plugin_synopsis }}</p>
 
   <p>
-    <a href="{{ repo_url }}/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/SuperMonster003/AutoJs6-Plugin-OpenCV?label=Release"/></a>
-    <a href="{{ repo_url }}/issues"><img alt="GitHub closed issues" src="https://img.shields.io/github/issues/SuperMonster003/AutoJs6-Plugin-OpenCV?color=A24232&label=Issues"/></a>
-    <br>
-    <a href="https://developer.android.com/studio/archive"><img alt="Android Studio" src="https://img.shields.io/badge/Android%20Studio-2023.3+-B64FC8"/></a>
-    <a href="https://www.jetbrains.com/idea/download/other.html"><img alt="IntelliJ IDEA" src="https://img.shields.io/badge/IntelliJ%20IDEA-2023.3+-EE4677"/></a>
-    <a href="{{ license_url }}"><img alt="GitHub License" src="https://img.shields.io/github/license/SuperMonster003/AutoJs6-Plugin-OpenCV?color=534BAE&label=License"/></a>
+    <a href="{{ repo_url }}/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/{{ repo_slug }}?label=Release"/></a>
+    <a href="{{ repo_url }}/issues"><img alt="GitHub closed issues" src="https://img.shields.io/github/issues/{{ repo_slug }}?color=A24232&label=Issues"/></a>
+    <a href="{{ license_url }}"><img alt="GitHub License" src="https://img.shields.io/github/license/{{ repo_slug }}?color=534BAE&label=License"/></a>
   </p>
 </div>
 
@@ -33,81 +30,129 @@
 
 ******
 
-{{ p_introduction }}
+{{ p_introduction_what }}
+
+{{ p_introduction_how }}
 
 ******
 
-### {{ h3_plugin_contract }}
+### {{ h3_features }}
 
 ******
 
-- {{ text_application_id }}: `{{ plugin_application_id }}`
-- {{ text_plugin_id }}: `{{ plugin_id }}`
-- {{ text_engine }}: `{{ plugin_engine }}`
-- {{ text_variant }}: `{{ plugin_variant }}`
-- {{ text_contract_version }}: `{{ plugin_contract_version }}`
-- {{ text_required_host_version_code }}: `{{ required_host_version_code }}`
-- {{ text_native_library }}: `{{ native_library_name }}`
-- {{ text_native_ndk_version }}: `{{ native_ndk_version }}`
-- {{ text_java_api_sha256 }}: `{{ java_api_sha256 }}`
+{{ placeholder_features }}
+
+******
+
+### {{ h3_usage }}
+
+******
+
+{{ placeholder_usage_steps }}
+
+> {{ p_usage_note }}
+
+<p align="center">
+  <img src="{{ repo_url }}/blob/master/docs/images/screenshots/plugin-center-enabled.png?raw=true" alt="{{ p_plugin_center_screenshot }}" width="480" />
+</p>
+<p align="center"><sub>{{ p_plugin_center_screenshot }}</sub></p>
+
+******
+
+### {{ h3_choose_apk }}
+
+******
+
+{{ p_choose_apk_intro }}:
+
+| {{ th_apk_variant }} | {{ th_apk_target }} |
+|---|---|
+| `arm64-v8a` | {{ td_abi_arm64 }} |
+| `armeabi-v7a` | {{ td_abi_arm32 }} |
+| `x86_64` | {{ td_abi_x86_64 }} |
+| `x86` | {{ td_abi_x86 }} |
+| `universal` | {{ td_abi_universal }} |
+
+{{ p_choose_apk_note }}
+
+******
+
+### {{ h3_self_check }}
+
+******
+
+{{ p_self_check_intro }}:
+
+```javascript
+images.initOpenCvIfNeeded();
+
+const Build = android.os.Build;
+const Process = android.os.Process;
+const Core = org.opencv.core.Core;
+const processAbis = Process.is64Bit()
+    ? Build.SUPPORTED_64_BIT_ABIS
+    : Build.SUPPORTED_32_BIT_ABIS;
+const processAbi = processAbis.length > 0 ? processAbis[0] : "unknown";
+
+console.log("OpenCV version: " + Core.getVersionString());
+console.log("Process ABI: " + processAbi);
+```
+
+{{ p_self_check_result }}
+
+******
+
+### {{ h3_faq }}
+
+******
+
+{{ placeholder_faq }}
+
+******
+
+### {{ h3_security }}
+
+******
+
+{{ p_security_intro }}
+
+{{ placeholder_security_points }}
+
+{{ p_security_permission }}
+
+******
+
+### {{ h3_plugin_interface }}
+
+******
+
+{{ p_plugin_interface }}:
+
+```text
+application id: {{ plugin_application_id }}
+plugin id: {{ plugin_id }}
+engine: {{ plugin_engine }}
+variant: {{ plugin_variant }}
+contract version: {{ plugin_contract_version }}
+minimum host build: {{ required_host_version_code }}
+native library: {{ native_library_file }}
+native ndk version: {{ native_ndk_version }}
+java api sha-256: {{ java_api_sha256 }}
+```
 
 {{ p_contract_service }}
 
-{{ p_contract_binder }}
-
-******
-
-### {{ h3_abis }}
-
-******
-
-{{ p_abis_intro }}:
-
-```text
-{{ supported_abis }}
-```
-
 {{ p_abi_reporting }}
 
-{{ p_abi_builder }}
+******
+
+### {{ h3_roadmap }}
 
 ******
 
-### {{ h3_build_and_verification }}
+{{ p_roadmap }}
 
-******
-
-{{ p_build_verification }}:
-
-```powershell
-.\gradlew.bat :app:testDebugUnitTest :app:verifyOpenCvApks
-```
-
-{{ p_build_only }}:
-
-```powershell
-.\gradlew.bat :app:assembleDebug
-```
-
-{{ p_build_signing }}:
-
-```powershell
-.\gradlew.bat :app:verifyOpenCvPublishableApks
-```
-
-{{ p_build_unsigned }}
-
-******
-
-### {{ h3_runtime_behavior }}
-
-******
-
-{{ p_runtime_behavior }}
-
-{{ p_runtime_cpp }}
-
-{{ p_runtime_trust }}
+- [{{ text_link_roadmap }}]({{ roadmap_url }})
 
 ******
 
@@ -123,17 +168,56 @@
 
 ******
 
+### {{ h3_build }}
+
+******
+
+{{ p_build_intro }}
+
+{{ p_build_debug }}:
+
+```powershell
+.\gradlew.bat :app:assembleDebug
+```
+
+{{ p_build_verification }}:
+
+```powershell
+.\gradlew.bat :app:testDebugUnitTest :app:verifyOpenCvApks
+```
+
+{{ p_build_signing }}:
+
+```powershell
+.\gradlew.bat :app:verifyOpenCvPublishableApks
+```
+
+{{ p_build_release }}:
+
+```bat
+scripts\release\prepare-release.bat
+```
+
+{{ p_build_unsigned }}
+
+{{ p_build_native }}
+
+******
+
 ### {{ h3_resource_layout }}
 
 ******
 
 ```text
+.readme/common.json
 .readme/lang_*.json
+.readme/template_readme.md
 .changelog/lang_*.json
+.changelog/template_changelog.md
 .python/generate_markdown.py
-app/src/main/res/values*/strings.xml
-app/src/main/res/raw*/plugin_instruction.md
 app/src/main/assets/doc/CHANGELOG-*.md
+app/src/main/res/values-*/strings.xml
+app/src/main/res/raw-*/plugin_instruction.md
 ```
 
 {{ p_resource_layout }}

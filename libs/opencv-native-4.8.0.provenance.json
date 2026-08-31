@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "opencv": {
     "version": "4.8.0",
     "repository": "https://github.com/opencv/opencv.git",
@@ -14,19 +14,25 @@
     "cmakeVersion": "3.22.1",
     "compilerIdent": "Android (10552028, based on r487747d) clang version 17.0.2 (https://android.googlesource.com/toolchain/llvm-project d9f89f4d16663d5012e5c09495f3b30ece3d2362)",
     "stl": "c++_shared",
-    "libcxxSharedPackaged": false
+    "libcxxSharedPackaged": false,
+    "elfLoadSegmentAlignmentBytes": 16384
   },
   "artifact": {
     "path": "libs/opencv-native-4.8.0.aar",
-    "sha256": "dcb68ce2fa09a634e2194286d94987dd2219bad02d1d01257461ba8ad8236c28",
-    "sizeBytes": 53081345,
+    "sha256": "869e3ee9cf0cbb6e76e8a02dd94cd12e6cd2445e4b6dc662f46ed8f715c8875a",
+    "sizeBytes": 53083575,
     "abis": {
       "arm64-v8a": {
-        "sha256": "9294640d4028376d11a6fad548379b44348b3c164fcea73141134666ed4a79a0",
-        "sizeBytes": 20604240,
-        "gnuBuildId": "f5ce9061f24b161b8dd48d401f8b0f1923269e8a",
+        "sha256": "adb31f4905ac448d5b22faa293fd7d2315bcdab675b374088831fda7517c70ac",
+        "sizeBytes": 20614416,
+        "gnuBuildId": "d4291be287372096fe0190fc976419cf9762bee6",
         "androidApiLevel": 24,
         "androidNdkRelease": "r26b",
+        "loadSegmentAlignments": [
+          16384,
+          16384,
+          16384
+        ],
         "neededLibraries": [
           "libdl.so",
           "libm.so",
@@ -41,11 +47,16 @@
         ]
       },
       "armeabi-v7a": {
-        "sha256": "f938e4cae76898708af6b71a33ca650b73b83abe23762963f2593e38eca2ce8b",
-        "sizeBytes": 14437132,
-        "gnuBuildId": "6cb447130cf01a59f8141fbb36e38a8a39f03a91",
+        "sha256": "7e2f2a6761db7b049761e3e4da7ca245d48817f057799e95abf3d5d4ebd79138",
+        "sizeBytes": 14447276,
+        "gnuBuildId": "d4d32058ffa7e713d6d6278c85278cb46bda29fe",
         "androidApiLevel": 24,
         "androidNdkRelease": "r26b",
+        "loadSegmentAlignments": [
+          16384,
+          16384,
+          16384
+        ],
         "neededLibraries": [
           "libdl.so",
           "libm.so",
@@ -60,11 +71,16 @@
         ]
       },
       "x86": {
-        "sha256": "d7bf9a16c500cc888cbd60be1ced9d0693f2d3ebff0e0a77c6fdcfd2b36674d2",
-        "sizeBytes": 40721400,
-        "gnuBuildId": "030ba3ceef8eac3d018bc7b41b4a48738e0f29d3",
+        "sha256": "e5836d2f0d32b381e811eb653b6234b2b175b989ecde63aa3dadfa456e37d8fc",
+        "sizeBytes": 40731576,
+        "gnuBuildId": "67ce62644d77181faf7aa591c6c017b7bb1e7a6a",
         "androidApiLevel": 24,
         "androidNdkRelease": "r26b",
+        "loadSegmentAlignments": [
+          16384,
+          16384,
+          16384
+        ],
         "neededLibraries": [
           "libdl.so",
           "libm.so",
@@ -79,11 +95,16 @@
         ]
       },
       "x86_64": {
-        "sha256": "c97241f6453ee8323666dceebca0f940f84d03dca11f9cafbc9f6d9a6c7a5bd2",
-        "sizeBytes": 53325568,
-        "gnuBuildId": "ee120b169c19b5e101e14784c77104e2162d19b3",
+        "sha256": "33fce612532940b72721c618e5b3a0d979b0138a6f32dac412c41ce09411ab22",
+        "sizeBytes": 53335872,
+        "gnuBuildId": "3ab87523203221bbaf0f20915b79945f558db722",
         "androidApiLevel": 24,
         "androidNdkRelease": "r26b",
+        "loadSegmentAlignments": [
+          16384,
+          16384,
+          16384
+        ],
         "neededLibraries": [
           "libdl.so",
           "libm.so",
