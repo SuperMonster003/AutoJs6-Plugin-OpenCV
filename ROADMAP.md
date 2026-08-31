@@ -56,7 +56,7 @@ M0 ──> M1 ──> M2 ──> M3
 
 - [x] (测试) GitHub Actions 构建流水线: `.github/workflows/build.yml` 在 push/PR 上运行 Release 生成器自测, `:app:testDebugUnitTest` 与 `:app:verifyOpenCvApks`, 守护单元行为及全部 debug/release APK 的完整性.
 - [x] (测试) 扩充 `NativeLibraryInventoryTest` 用例矩阵: universal/单架构/无原生库/split 安装/缺失或损坏的多 APK 路径/提取目录回退等分支均有 JVM 用例.
-- [x] (测试) instrumentation 用例: `OpenCvPluginInfoServiceTest` 通过两个 discovery action 绑定服务, 断言 `PluginInfo` 的 id/engine/variant/version/supportedAbis/instruction 与全部 capabilities; `.github/workflows/build.yml` 配置 arm64-v8a/x86_64 模拟器矩阵, 本地另已在 x86_64 模拟器与 arm64-v8a 真机实跑通过.
+- [x] (测试) instrumentation 用例: `OpenCvPluginInfoServiceTest` 通过两个 discovery action 绑定服务, 断言 `PluginInfo` 的 id/engine/variant/version/supportedAbis/instruction 与全部 capabilities; `.github/workflows/build.yml` 在 GitHub 托管的 x86_64 模拟器持续执行 Binder 回归, 全 ABI APK 门禁覆盖 arm64-v8a/armeabi-v7a/x86/x86_64 原生载荷, 本地另已在 x86_64 模拟器与 arm64-v8a 真机实跑通过.
 - [x] (发布) Release 产物脚本化: `scripts/release/prepare-release.bat` 先执行 `:app:verifyOpenCvPublishableApks`, 再一键归集 5 个已签名 APK, provenance JSON, `SHA256SUMS.txt` 与 `RELEASE_NOTES.md`; Python 自测覆盖缺包, 混包, provenance/AAR 漂移, 篡改与未知输出保护.
 
 验收条件: 主分支每次提交自动完成构建, 单元测试与 APK 完整性校验; 发布产物由脚本生成且哈希可追溯.

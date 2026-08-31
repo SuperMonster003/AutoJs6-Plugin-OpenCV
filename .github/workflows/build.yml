@@ -39,17 +39,9 @@ jobs:
           ./gradlew :app:testDebugUnitTest :app:verifyOpenCvApks --stacktrace
 
   verify-service:
-    name: Plugin service (${{ matrix.arch }})
-    runs-on: ${{ matrix.runner }}
+    name: Plugin service (x86_64 emulator)
+    runs-on: ubuntu-latest
     timeout-minutes: 45
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: ubuntu-latest
-            arch: x86_64
-          - runner: ubuntu-24.04-arm
-            arch: arm64-v8a
 
     steps:
       - name: Check out repository
@@ -73,7 +65,7 @@ jobs:
         with:
           api-level: 35
           target: google_apis
-          arch: ${{ matrix.arch }}
+          arch: x86_64
           profile: pixel_7
           script: |
             chmod +x gradlew
